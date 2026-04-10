@@ -16,6 +16,16 @@ MedRiskEval provides a unified framework to evaluate large language models acros
 | XSTest | `xstest` | Over-refusal / exaggerated safety behavior | 250 safe + 200 unsafe | gpt-4-0806 |
 | FACTS-med | `facts_med` | Groundedness against reference documents | 219 | gpt-4 |
 
+## :WARNING: Disclaimer
+
+> **!THIS REPOSITORY IS FOR RESEARCH PURPOSES!**
+>
+> - **This benchmark and its outputs are research artefacts only.** Results produced by MedRiskEval do not constitute a guarantee of safety, reliability, or fitness for any particular use case. A passing score does not imply that a model is safe for deployment in clinical or patient-facing settings.
+>
+> - **Proper red-teaming, domain-expert review, and regulatory compliance assessments should still be carried out** before deploying any language model in healthcare environments. MedRiskEval is intended to support — not replace — comprehensive safety evaluation processes.
+>
+> **The authors and contributors assume no liability for decisions made based on benchmark results.**
+
 ## Installation
 
 ```bash
@@ -296,13 +306,15 @@ medriskeval/
 └── requirements.txt
 ```
 
-## !WARNING! Disclaimer
+## :WARNING: Disclaimer
 
-> **This benchmark and its outputs are research artefacts only.** Results produced by MedRiskEval do not constitute a guarantee of safety, reliability, or fitness for any particular use case. A passing score does not imply that a model is safe for deployment in clinical or patient-facing settings.
+> **!THIS REPOSITORY IS FOR RESEARCH PURPOSES!**
 >
-> **Proper red-teaming, domain-expert review, and regulatory compliance assessments should still be carried out** before deploying any language model in healthcare environments. MedRiskEval is intended to support — not replace — comprehensive safety evaluation processes.
+> - **This benchmark and its outputs are research artefacts only.** Results produced by MedRiskEval do not constitute a guarantee of safety, reliability, or fitness for any particular use case. A passing score does not imply that a model is safe for deployment in clinical or patient-facing settings.
 >
-> The authors and contributors assume no liability for decisions made based on benchmark results.
+> - **Proper red-teaming, domain-expert review, and regulatory compliance assessments should still be carried out** before deploying any language model in healthcare environments. MedRiskEval is intended to support — not replace — comprehensive safety evaluation processes.
+>
+> **The authors and contributors assume no liability for decisions made based on benchmark results.**
 
 ## Citation
 
