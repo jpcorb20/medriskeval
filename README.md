@@ -289,8 +289,6 @@ medriskeval/
 │   ├── reporting/            # Result summarization and export
 │   └── runner/               # Evaluation pipeline and task orchestration
 ├── configs/                  # YAML configuration files
-├── research_prompts/         # Research prompt templates
-├── research_script_run_datasets/  # Original research scripts
 ├── runs/                     # Evaluation output directory
 ├── cache/                    # Response and judgment cache
 ├── setup_datasets.py         # Dataset download and setup script
