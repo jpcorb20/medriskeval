@@ -1,0 +1,35 @@
+# medriskeval – vLLM local model evaluation
+#
+# Evaluate locally-served models via the OpenAI-compatible API.
+# Start vLLM first:
+#   python -m vllm.entrypoints.openai.api_server \
+#       --model meta-llama/Llama-3.1-8B-Instruct --port 8000
+#
+# Usage: medriskeval run-config configs/vllm_local.yaml
+
+tasks:
+  - benchmark: psb
+  - benchmark: jbb
+    split: harmful
+
+models:
+  - provider: vllm
+    model_id: meta-llama/Llama-3.1-8B-Instruct
+    base_url: http://localhost:8000/v1
+    timeout: 120.0
+    generation:
+      temperature: 0.0
+      max_tokens: 128       # match original research scripts
+
+judge:
+  provider: openai
+  model_id: gpt-4
+  api_key: ${OPENAI_API_KEY}
+  base_url: ${JUDGE_ENDPOINT:https://api.openai.com/v1}
+  generation:
+    temperature: 0.0
+    max_tokens: 512
+  num_samples: 1
+
+output_dir: ./runs
+cache_dir: ./cache

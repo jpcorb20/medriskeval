@@ -1,0 +1,14 @@
+# Test config for mock pipeline run
+tasks:
+  - benchmark: psb
+    max_samples: 3
+
+models:
+  - provider: openai
+    model_id: mock-target
+    generation:
+      temperature: 0.0
+      max_tokens: 256
+
+output_dir: ./test_yaml_runs
+cache_dir: ./test_yaml_cache

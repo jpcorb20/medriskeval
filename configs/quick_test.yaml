@@ -1,0 +1,29 @@
+# medriskeval – Quick smoke-test configuration
+#
+# Run PSB with a small sample to verify everything works.
+# Usage: medriskeval run-config configs/quick_test.yaml
+
+tasks:
+  - benchmark: psb
+    # max_samples: 10
+
+models:
+  - provider: azure
+    model_id: gpt-4.1-mini
+    api_key: ${AZURE_OPENAI_API_KEY:}
+    base_url: ${AZURE_OPENAI_ENDPOINT:https://radmetric.openai.azure.com}
+    api_version: "2025-01-01-preview"
+    generation:
+      temperature: 0.0
+      max_tokens: 256
+
+judge:
+  provider: azure
+  model_id: gpt-4o
+  api_key: ${AZURE_OPENAI_API_KEY:}
+  base_url: ${AZURE_OPENAI_ENDPOINT:https://radmetric.openai.azure.com}
+  api_version: "2025-01-01-preview"
+
+output_dir: ./runs
+cache_dir: ./cache
+verbose: true

@@ -1,0 +1,32 @@
+# medriskeval – vLLM model with Azure judge
+#
+# Evaluate a locally-served vLLM model, judged by Azure OpenAI.
+# Start vLLM first:
+#   python -m vllm.entrypoints.openai.api_server \
+#       --model meta-llama/Llama-3.1-8B-Instruct --port 8000
+#
+# Usage: medriskeval run-config configs/vllm_azure_judge.yaml
+
+tasks:
+  - benchmark: psb
+    max_samples: 10
+
+models:
+  - provider: vllm
+    model_id: HuggingFaceTB/SmolLM2-135M-Instruct
+    base_url: http://localhost:8000/v1
+    timeout: 120.0
+    generation:
+      temperature: 0.0
+      max_tokens: 128
+
+judge:
+  provider: azure
+  model_id: gpt-4o
+  api_key: ${AZURE_OPENAI_API_KEY:}
+  base_url: ${AZURE_OPENAI_ENDPOINT:}
+  api_version: "2025-01-01-preview"
+
+output_dir: ./runs
+cache_dir: ./cache
+verbose: true
