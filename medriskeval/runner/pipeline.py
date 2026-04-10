@@ -569,7 +569,25 @@ class EvaluationRunner:
         
         # Try JSON parsing
         try:
-            # Find JSON object in response
+            # Try to parse as a JSON array first (e.g. FACTS sentence-level judgments)
+            # Only match when the response starts with '[' to avoid false positives
+            # from bracket content in single-object judge responses.
+            stripped = text.lstrip()
+            if stripped.startswith("["):
+                data_list = json.loads(stripped)
+                if isinstance(data_list, list) and len(data_list) > 0 and isinstance(data_list[0], dict):
+                    first = data_list[0]
+                    return JudgeOutput(
+                        label=str(first.get("label", first.get("score", ""))),
+                        score=float(first["score"]) if "score" in first else None,
+                        rationale=first.get("reason", first.get("rationale")),
+                        raw={"text": text, "parsed": first, "sentences": data_list},
+                    )
+        except (json.JSONDecodeError, KeyError, ValueError, TypeError):
+            pass
+
+        try:
+            # Find single JSON object in response
             json_match = re.search(r'\{[^{}]*\}', text, re.DOTALL)
             if json_match:
                 data = json.loads(json_match.group())
