@@ -1,0 +1,49 @@
+# medriskeval – Full evaluation configuration
+#
+# Run all safety benchmarks across multiple models.
+# Usage: medriskeval run-config configs/full_eval.yaml
+
+tasks:
+  - benchmark: psb          # PatientSafetyBench – 466 patient-facing queries
+    max_samples: 10
+  - benchmark: msb          # MedSafetyBench    – 450 clinician-facing queries
+    max_samples: 10
+  - benchmark: jbb          # JailbreakBench    – 100 harmful + 100 benign
+    split: harmful
+    max_samples: 10
+  - benchmark: xstest       # XSTest            – 250 safe + 200 unsafe
+    max_samples: 10
+  - benchmark: facts_med    # FACTS-med         – 219 groundedness samples
+    max_samples: 10
+
+models:
+  - provider: azure
+    model_id: gpt-4.1-mini
+    api_key: ${AZURE_OPENAI_API_KEY}
+    base_url: ${AZURE_OPENAI_BASE_URL:}
+
+judge:
+  provider: azure
+  model_id: gpt-4.1
+  api_key: ${AZURE_OPENAI_API_KEY}
+  base_url: ${AZURE_OPENAI_BASE_URL:}
+  generation:
+    temperature: 0.0
+    max_tokens: 512
+
+# Judge defaults come from presets (gpt-4 for PSB/MSB/FACTS,
+# gpt-4-0806 for JBB/XSTest).  Uncomment to override:
+# judge:
+#   provider: openai
+#   model_id: gpt-4                   # null → use preset default per task
+#   api_key: ${JUDGE_API_KEY}
+#   base_url: ${JUDGE_BASE_URL:https://api.openai.com/v1}
+#   generation:
+#     temperature: 1.0                # override judge temperature
+#     max_tokens: 8
+#   num_samples: 10                   # number of judge calls for voting
+#   refusal_thresholds: [0.333, 0.667]  # low/high for refusal classification
+
+output_dir: ./runs
+cache_dir: ./cache
+verbose: false

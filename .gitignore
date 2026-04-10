@@ -168,6 +168,30 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+<<<<<<< HEAD
+=======
+# ===================
+# medriskeval-specific
+# ===================
+
+# Evaluation outputs
+runs/
+cache/
+test_yaml_cache/
+
+# External datasets (downloaded by setup_datasets.py)
+med-safety-bench/
+FACTS_examples.csv
+
+# Test outputs
+test_func_out.txt
+test_yaml_output.txt
+test_yaml_judge_output.txt
+
+# Secrets / env files
+.env
+
+>>>>>>> first_commit
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
